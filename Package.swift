@@ -15,6 +15,8 @@ let package = Package(
         
         // GraphQL
         .package(url: "https://github.com/GraphQLSwift/GraphQL.git", from: "0.0.0"),
+        // Apollo
+        .package(url: "https://github.com/apollographql/apollo-ios.git", from: "0.9.2")
     ],
     targets: [
         .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "SwiftSoup", "GraphQL"]),
