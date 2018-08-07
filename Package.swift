@@ -19,7 +19,11 @@ let package = Package(
         .package(url: "https://github.com/apollographql/apollo-ios.git", from: "0.9.2")
     ],
     targets: [
-        .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "SwiftSoup", "GraphQL"]),
+        .target(name: "App", dependencies: ["FluentSQLite",
+                                            "Vapor",
+                                            "SwiftSoup",
+                                            "GraphQL",
+                                            "Apollo"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
