@@ -8,10 +8,6 @@
 import Foundation
 import Vapor
 
-struct LabelsResponse: Content {
-    var labels: [Label]?
-}
-
 struct Label: Content {
     var name: String?
 }
