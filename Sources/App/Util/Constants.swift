@@ -17,9 +17,6 @@ struct Constants {
     struct GitHubAPI {
         static let Labels = "/repos/\(Constants.GitHubUsername)/\(Constants.GitHubRepoName)/labels"
         static let Issues = "/repos/\(Constants.GitHubUsername)/\(Constants.GitHubRepoName)/issues"
-        static let Issue  = "/repos/\(Constants.GitHubUsername)/\(Constants.GitHubRepoName)/issues/"
-        static let CommentsSuffix = "/comments"
-        static let SearchIssues = "/search/issues"
-        static let SearchIssuesQuerySuffix = "+author:\(Constants.GitHubUsername)"
+        static let Comments  = "/repos/\(Constants.GitHubUsername)/\(Constants.GitHubRepoName)/issues/comments"
     }
 }
