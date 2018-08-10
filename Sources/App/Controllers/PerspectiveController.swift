@@ -35,6 +35,7 @@ extension PerspectiveController {
         
         // Do sth...
         _ = try fetchLables(request)
+        _ = try fetchIssues(request)
         
         return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
     }
@@ -55,6 +56,25 @@ extension PerspectiveController {
             let data = json.convertToData()
             let decoder = JSONDecoder()
             let item = try decoder.decode([Label].self, from: data)
+            print(item.count)
+            return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
+        }
+    }
+    
+    func fetchIssues(_ request: Request) throws -> Future<Response> {
+        guard let apiURL = (Constants.GitHubAPIPrefix + Constants.GitHubAPI.Issues).convertToURL() else {
+            return try ResponseJSON<Empty>(status: .error, message: "URL error.").encode(for: request)
+        }
+        
+        let authHeader: HTTPHeaders = ["Authorization" : "token \(Constants.GitHubAPIToken)"]
+        let apiRequest = HTTPRequest(method: .GET, url: apiURL, headers: authHeader)
+        let getRequest = Request(http: apiRequest, using: request)
+        
+        return try request.client().send(getRequest).flatMap(to: Response.self) { response in
+            let json = response.http.body.utf8String
+            let data = json.convertToData()
+            let decoder = JSONDecoder()
+            let item = try decoder.decode([Issue].self, from: data)
             print(item.count)
             return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
         }
