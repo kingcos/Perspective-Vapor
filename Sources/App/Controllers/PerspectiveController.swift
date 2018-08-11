@@ -7,7 +7,6 @@
 
 import Foundation
 import Vapor
-import Apollo
 
 class PerspectiveController: RouteCollection {
     
@@ -18,6 +17,7 @@ class PerspectiveController: RouteCollection {
     func boot(router: Router) throws {
         router.group("github") { router in
             router.get("start", use: start)
+            
 //            router.get("labels", use: fetchLabels)
 //            router.get("cancel", use: )
 //            router.get("cancel", use: )
@@ -30,7 +30,8 @@ class PerspectiveController: RouteCollection {
 extension PerspectiveController {
     func start(_ request: Request) throws -> Future<Response> {
         guard timer == nil else {
-            return try ResponseJSON<Empty>(status: .error, message: "Timer is running.").encode(for: request)
+            return try ResponseJSON<Empty>(status: .error,
+                                           message: "Timer is running.").encode(for: request)
         }
         
         // Do sth...
@@ -38,14 +39,16 @@ extension PerspectiveController {
         _ = try fetchIssues(request)
         _ = try fetchComments(request)
         
-        return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
+        return try ResponseJSON<Empty>(status: .ok,
+                                       message: "Starting...").encode(for: request)
     }
 }
 
 extension PerspectiveController {
     func fetchLables(_ request: Request) throws -> Future<Response> {
         guard let apiURL = (Constants.GitHubAPIPrefix + Constants.GitHubAPI.Labels).convertToURL() else {
-            return try ResponseJSON<Empty>(status: .error, message: "URL error.").encode(for: request)
+            return try ResponseJSON<Empty>(status: .error,
+                                           message: "URL error.").encode(for: request)
         }
         
         let authHeader: HTTPHeaders = ["Authorization" : "token \(Constants.GitHubAPIToken)"]
@@ -53,18 +56,24 @@ extension PerspectiveController {
         let getRequest = Request(http: apiRequest, using: request)
         
         return try request.client().send(getRequest).flatMap(to: Response.self) { response in
-            let json = response.http.body.utf8String
+            let json = response.http.body.utf8
             let data = json.convertToData()
             let decoder = JSONDecoder()
             let item = try decoder.decode([Label].self, from: data)
-            print(item.count)
-            return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
+            
+            
+            
+            
+            
+            return try ResponseJSON<Empty>(status: .ok,
+                                           message: "Starting...").encode(for: request)
         }
     }
     
     func fetchIssues(_ request: Request) throws -> Future<Response> {
         guard let apiURL = (Constants.GitHubAPIPrefix + Constants.GitHubAPI.Issues).convertToURL() else {
-            return try ResponseJSON<Empty>(status: .error, message: "URL error.").encode(for: request)
+            return try ResponseJSON<Empty>(status: .error,
+                                           message: "URL error.").encode(for: request)
         }
         
         let authHeader: HTTPHeaders = ["Authorization" : "token \(Constants.GitHubAPIToken)"]
@@ -72,18 +81,20 @@ extension PerspectiveController {
         let getRequest = Request(http: apiRequest, using: request)
         
         return try request.client().send(getRequest).flatMap(to: Response.self) { response in
-            let json = response.http.body.utf8String
+            let json = response.http.body.utf8
             let data = json.convertToData()
             let decoder = JSONDecoder()
             let item = try decoder.decode([Issue].self, from: data)
             print(item.count)
-            return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
+            return try ResponseJSON<Empty>(status: .ok,
+                                           message: "Starting...").encode(for: request)
         }
     }
     
     func fetchComments(_ request: Request) throws -> Future<Response> {
         guard let apiURL = (Constants.GitHubAPIPrefix + Constants.GitHubAPI.Comments).convertToURL() else {
-            return try ResponseJSON<Empty>(status: .error, message: "URL error.").encode(for: request)
+            return try ResponseJSON<Empty>(status: .error,
+                                           message: "URL error.").encode(for: request)
         }
         
         let authHeader: HTTPHeaders = ["Authorization" : "token \(Constants.GitHubAPIToken)"]
@@ -91,12 +102,13 @@ extension PerspectiveController {
         let getRequest = Request(http: apiRequest, using: request)
         
         return try request.client().send(getRequest).flatMap(to: Response.self) { response in
-            let json = response.http.body.utf8String
+            let json = response.http.body.utf8
             let data = json.convertToData()
             let decoder = JSONDecoder()
             let item = try decoder.decode([Comment].self, from: data)
             print(item.count)
-            return try ResponseJSON<Empty>(status: .ok, message: "Starting...").encode(for: request)
+            return try ResponseJSON<Empty>(status: .ok,
+                                           message: "Starting...").encode(for: request)
         }
     }
 }
