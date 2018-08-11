@@ -8,7 +8,7 @@
 import Vapor
 
 extension HTTPBody {
-    var utf8String: String {
+    var utf8: String {
         return String(data: data ?? Data(), encoding: .utf8) ?? "n/a"
     }
 }
