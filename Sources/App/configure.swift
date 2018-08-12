@@ -16,11 +16,11 @@ public func configure(_ config: inout Config,
     middlewares.use(ErrorMiddleware.self) // Catches errors and converts to HTTP response
     services.register(middlewares)
     
-    // -- Database --
-    var databases = DatabasesConfig()
-    services.register(databases)
-
-    // -- Migration --
-    var migrations = MigrationConfig()
-    services.register(migrations)
+//    // -- Database --
+//    var databases = DatabasesConfig()
+//    services.register(databases)
+//
+//    // -- Migration --
+//    var migrations = MigrationConfig()
+//    services.register(migrations)
 }
