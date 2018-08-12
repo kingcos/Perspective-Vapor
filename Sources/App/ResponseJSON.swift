@@ -17,9 +17,9 @@ enum ResponseStatus: Int, Content {
     var description: String {
         switch self {
         case .ok:
-            return "请求成功"
+            return "Success"
         case .error:
-            return "请求失败"
+            return "Failure"
         }
     }
 }
