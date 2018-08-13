@@ -10,9 +10,10 @@ This is just a simple server for visit GitHub API through your server. It's even
 
 ### macOS
 
-1. Setup your GitHub API token in `Constants.swift`
-2. `vapor build`
-3. `vapor run`
+1. `git clone https://github.com/kingcos/Perspective-Vapor.git`
+2. Setup your GitHub API token in `Constants.swift`
+3. `vapor build`
+4. `vapor run`
 
 ### Linux
 
