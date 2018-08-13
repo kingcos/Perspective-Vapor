@@ -24,7 +24,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 2. Setup your GitHub API token in `Perspective-Vapor/Sources/App/Util/Constants.swift` - `GitHubAPIToken`
 3. `cd Perspective-Vapor`
 4. `vapor build`
-5. `vapor run serve --hostname=0.0.0.0 --port=80`
+5. `vapor run serve --hostname=0.0.0.0 --port=80` or `nohup vapor run serve --hostname=0.0.0.0 --port=80 &` run in background
 
 ## API
 
