@@ -18,6 +18,8 @@ This is just a simple server for visit GitHub API through your server. It's even
 
 ### Linux
 
+> Ubuntu 16.04 x86_64
+
 1. `git clone https://github.com/kingcos/Perspective-Vapor.git`
 2. Setup your GitHub API token in `Perspective-Vapor/Sources/App/Util/Constants.swift` - `GitHubAPIToken`
 3. `cd Perspective-Vapor`
