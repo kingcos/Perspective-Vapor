@@ -37,10 +37,10 @@ This is just a simple server for visit GitHub API through your server. It's even
 - nginx HTTPS config:
 
 ```conf
-# /etc/nginx/conf.d/kingcos_top.conf
+# /etc/nginx/conf.d/kingcos_top_433.conf
 server {
     listen 443;
-    server_name localhost;
+    server_name kingcos.top;
     ssl on;
     root html;
     index index.html index.htm;
@@ -51,6 +51,22 @@ server {
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_prefer_server_ciphers on;
     location / {
+        root html;
+        index index.html index.htm;
+    }
+}
+```
+
+```conf
+# /etc/nginx/conf.d/kingcos_top_80.conf
+server {
+    listen 80;
+    server_name kingcos.top;
+    index index.html index.htm;
+
+    return 301 https://$server_name$request_uri;
+
+    location ~ / {
         root html;
         index index.html index.htm;
     }
