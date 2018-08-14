@@ -6,6 +6,12 @@ A Vapor server for WeApp of my personal blog - Perspective.
 
 This is just a simple server for visit GitHub API through your server. It's even without a database. (So why not visit GitHub API directly? Because there're some weird reasons here, I have to do this.)
 
+## Progress
+
+- [x] Support Linux
+- [ ] HTTPS
+- [ ] More generic use (Like fetch by page, username, repository name ...)
+
 ## How to run?
 
 ### macOS
