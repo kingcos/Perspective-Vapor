@@ -12,6 +12,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 - [x] HTTPS
 - [ ] GraphQL
 - [ ] More generic use (Like fetch by page, username, repository name ...)
+- [ ] Docker
 
 ## How to run?
 
