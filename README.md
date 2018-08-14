@@ -32,7 +32,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 2. Setup your GitHub API token in `Perspective-Vapor/Sources/App/Util/Constants.swift` - `GitHubAPIToken`
 3. `cd Perspective-Vapor`
 4. `vapor build`
-5. `vapor run serve --hostname=0.0.0.0 --port=80` or `nohup vapor run serve --hostname=0.0.0.0 --port=80 &` run in background
+5.  `nohup vapor run serve --hostname=0.0.0.0 --port=80 &`
 
 - nginx HTTPS config:
 
@@ -46,14 +46,21 @@ server {
     root html;
     index index.html index.htm;
     ssl_certificate YOUR_PEM_PATH.pem;
-    ssl_certificate_key YOUR_KEY_PATH.key;
+    ssl_certificate_key YOUR_PEM_PATH.key;
     ssl_session_timeout 5m;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_prefer_server_ciphers on;
+
     location / {
-        root html;
-        index index.html index.htm;
+        proxy_pass http://localhost:8080;
+        proxy_pass_header Server;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass_header Server;
+        proxy_connect_timeout 3s;
+        proxy_read_timeout 10s;
     }
 }
 ```
@@ -66,12 +73,13 @@ server {
     index index.html index.htm;
 
     return 301 https://$server_name$request_uri;
-
-    location ~ / {
-        root html;
-        index index.html index.htm;
-    }
 }
+```
+
+```conf
+# /etc/nginx/nginx.conf
+# Comment this line
+# include /etc/nginx/sites-enabled/*;
 ```
 
 ## API
@@ -79,9 +87,9 @@ server {
 > You can visit my website for test: [https://kingcos.top](https://kingcos.top)
 
 ```
-http://localhost:8080/perspective/labels
-http://localhost:8080/perspective/issues
-http://localhost:8080/perspective/comments
+https://kingcos.top/perspective/labels
+https://kingcos.top/perspective/issues
+https://kingcos.top/perspective/comments
 ```
 
 ## LICENSE
