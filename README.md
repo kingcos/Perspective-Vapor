@@ -9,7 +9,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 ## Progress
 
 - [x] Support Linux
-- [ ] HTTPS
+- [x] HTTPS
 - [ ] GraphQL
 - [ ] More generic use (Like fetch by page, username, repository name ...)
 
@@ -33,9 +33,32 @@ This is just a simple server for visit GitHub API through your server. It's even
 4. `vapor build`
 5. `vapor run serve --hostname=0.0.0.0 --port=80` or `nohup vapor run serve --hostname=0.0.0.0 --port=80 &` run in background
 
+- nginx HTTPS config:
+
+```conf
+# /etc/nginx/conf.d/kingcos_top.conf
+server {
+    listen 443;
+    server_name localhost;
+    ssl on;
+    root html;
+    index index.html index.htm;
+    ssl_certificate   YOUR_PEM_PATH.pem;
+    ssl_certificate_key  YOUR_KEY_PATH.key;
+    ssl_session_timeout 5m;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    location / {
+        root html;
+        index index.html index.htm;
+    }
+}
+```
+
 ## API
 
-> You can visit my website for test: [http://kingcos.top](http://kingcos.top)
+> You can visit my website for test: [https://kingcos.top](https://kingcos.top)
 
 ```
 http://localhost:8080/perspective/labels
