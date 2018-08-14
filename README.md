@@ -45,8 +45,8 @@ server {
     ssl on;
     root html;
     index index.html index.htm;
-    ssl_certificate   YOUR_PEM_PATH.pem;
-    ssl_certificate_key  YOUR_KEY_PATH.key;
+    ssl_certificate YOUR_PEM_PATH.pem;
+    ssl_certificate_key YOUR_KEY_PATH.key;
     ssl_session_timeout 5m;
     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
