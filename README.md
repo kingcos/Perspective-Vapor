@@ -34,7 +34,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 4. `vapor build`
 5.  `nohup vapor run serve --hostname=0.0.0.0 --port=80 &`
 
-- nginx HTTPS config:
+- nginx HTTPS & Vapor proxy (Run `service nginx restart` after configuration):
 
 ```conf
 # /etc/nginx/conf.d/kingcos_top_433.conf
