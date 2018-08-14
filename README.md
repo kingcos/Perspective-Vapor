@@ -9,7 +9,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 ## Progress
 
 - [x] Support Linux
-- [x] HTTPS
+- [x] HTTPS (Based on nginx)
 - [ ] GraphQL
 - [ ] More generic use (Like fetch by page, username, repository name ...)
 - [ ] Docker
