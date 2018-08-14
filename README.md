@@ -32,7 +32,6 @@ This is just a simple server for visit GitHub API through your server. It's even
 2. Setup your GitHub API token in `Perspective-Vapor/Sources/App/Util/Constants.swift` - `GitHubAPIToken`
 3. `cd Perspective-Vapor`
 4. `vapor build`
-5.  `nohup vapor run serve --hostname=127.0.0.1 --port=8080 &`
 
 - nginx HTTPS & Vapor proxy (Run `service nginx restart` after configuration):
 
@@ -82,6 +81,20 @@ server {
 # include /etc/nginx/sites-enabled/*;
 ```
 
+- Run in background by Supervisor
+
+```
+; vapor_server.ini
+[program:Vapor]
+command=vapor run serve --hostname=127.0.0.1 --port=8080
+autostart=true
+autorestart=true
+startretries=5
+user=root
+
+[supervisord]
+```
+
 ## API
 
 > You can visit my website for test: [https://kingcos.top](https://kingcos.top)
@@ -91,6 +104,10 @@ https://kingcos.top/perspective/labels
 https://kingcos.top/perspective/issues
 https://kingcos.top/perspective/comments
 ```
+
+## Reference
+
+- [Supervisor setup & basic usages (zh_CN)](https://github.com/kingcos/Perspective/issues/9)
 
 ## LICENSE
 
