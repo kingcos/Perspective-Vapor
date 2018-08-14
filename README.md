@@ -38,6 +38,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 
 ```conf
 # /etc/nginx/conf.d/kingcos_top_433.conf
+# Note the YOUR_PEM_PATH & YOUR_KEY_PATH
 server {
     listen 443;
     server_name kingcos.top;
