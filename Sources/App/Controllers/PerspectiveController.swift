@@ -15,13 +15,15 @@ class PerspectiveController: RouteCollection {
     var labels: [Label] = []
     
     func boot(router: Router) throws {
-        router.group("github") { router in
+        router.group("repos") { router in
             router.get(String.parameter, String.parameter, API.GitHub.Issues,
                        use: fetchIssuesList)
             router.get(String.parameter, String.parameter, API.GitHub.Issues, Int.parameter,
                        use: fetchIssueDetails)
             router.get(String.parameter, String.parameter, API.GitHub.Issues, Int.parameter, API.GitHub.Comments,
-                       use: fetchComments)
+                       use: fetchCommentsByIssueNumber)
+            router.get(String.parameter, String.parameter, API.GitHub.Labels,
+                       use: fetchLabels)
         }
     }
 }
@@ -83,7 +85,7 @@ extension PerspectiveController {
         }
     }
     
-    func fetchComments(_ request: Request) throws -> Future<Response> {
+    func fetchCommentsByIssueNumber(_ request: Request) throws -> Future<Response> {
         let owner = try request.parameters.next(String.self)
         let repo = try request.parameters.next(String.self)
         let number = try request.parameters.next(Int.self)
@@ -110,6 +112,35 @@ extension PerspectiveController {
             
             return try ResponseJSON<[Comment]>(status: .ok,
                                                data: items).encode(for: request)
+        }
+    }
+    
+    func fetchLabels(_ request: Request) throws -> Future<Response> {
+        let owner = try request.parameters.next(String.self)
+        let repo = try request.parameters.next(String.self)
+        
+        let page = request.query[String.self, at: "page"] ?? "1"
+        let perPage = request.query[String.self, at: "per_page"] ?? "10"
+        
+        let url = "\(API.GitHub.Prefix)/\(API.GitHub.Repos)/\(owner)/\(repo)/\(API.GitHub.Labels)?page=\(page)&per_page=\(perPage)"
+        
+        guard let apiURL = url.convertToURL() else {
+            return try ResponseJSON<Empty>(status: .error,
+                                           message: "API URL has broken.").encode(for: request)
+        }
+        
+        let header: HTTPHeaders = [
+            "Authorization" : "token \(API.GitHub.Token)"
+        ]
+        let apiRequest = HTTPRequest(method: .GET, url: apiURL, headers: header)
+        let getRequest = Request(http: apiRequest, using: request)
+        
+        return try request.client().send(getRequest).flatMap(to: Response.self) { response in
+            let data = response.http.body.utf8.convertToData()
+            let items = try JSONDecoder().decode([Label].self, from: data)
+            
+            return try ResponseJSON<[Label]>(status: .ok,
+                                             data: items).encode(for: request)
         }
     }
 }
