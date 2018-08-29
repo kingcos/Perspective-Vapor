@@ -10,4 +10,5 @@ import Vapor
 
 struct Label: Content {
     var name: String?
+    var color: String?
 }
