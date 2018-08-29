@@ -10,8 +10,8 @@ This is just a simple server for visit GitHub API through your server. It's even
 
 - [x] Support Linux
 - [x] HTTPS (Based on nginx)
+- [x] More generic use (Like fetch by page, username, repository name ...)
 - [ ] GraphQL
-- [ ] More generic use (Like fetch by page, username, repository name ...)
 - [ ] Docker
 
 ## How to run?
@@ -100,9 +100,16 @@ user=root
 > You can visit my website for test: [https://kingcos.top](https://kingcos.top)
 
 ```
+eg:
 https://kingcos.top/perspective/labels
-https://kingcos.top/perspective/issues
+https://kingcos.top/kingcos/perspective/issues?page=1&per_page=10
 https://kingcos.top/perspective/comments
+```
+
+- For your repository, just replace the username and repository name, then try again:
+
+```
+http://localhost/YOUR_USERNAME/YOUR_REPO_NAME/issues?page=PAGE_NUMBER&per_page=PAGE_SIZE
 ```
 
 ## Reference
