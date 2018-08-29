@@ -9,6 +9,7 @@ import Foundation
 
 struct API {
     struct GitHub {
+        static let Token = "YOUR_GITHUB_TOKEN"
         static let Prefix = "https://api.github.com"
         
         static let Repos = "/repos"
