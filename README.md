@@ -101,15 +101,16 @@ user=root
 
 ```
 eg:
-https://kingcos.top/perspective/labels
-https://kingcos.top/kingcos/perspective/issues?page=1&per_page=10
-https://kingcos.top/perspective/comments
+https://kingcos.top/repos/kingcos/perspective/issues?page=1&per_page=10
+https://kingcos.top/repos/kingcos/perspective/issues/20
+https://kingcos.top/repos/kingcos/perspective/issues/5/comments?page=1&per_page=10
+https://kingcos.top/repos/kingcos/perspective/labels
 ```
 
 - For your repository, just replace the username and repository name, then try again:
 
 ```
-http://localhost/YOUR_USERNAME/YOUR_REPO_NAME/issues?page=PAGE_NUMBER&per_page=PAGE_SIZE
+http://YOUR_DOMAIN/repos/YOUR_USERNAME/YOUR_REPO_NAME/issues?page=PAGE_NUMBER&per_page=PAGE_SIZE
 ```
 
 ## Reference
