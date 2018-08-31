@@ -105,6 +105,8 @@ https://kingcos.top/repos/kingcos/perspective/issues?page=1&per_page=10
 https://kingcos.top/repos/kingcos/perspective/issues/20
 https://kingcos.top/repos/kingcos/perspective/issues/5/comments?page=1&per_page=10
 https://kingcos.top/repos/kingcos/perspective/labels
+https://kingcos.top/users/kingcos/repos?page=1&per_page=10
+https://kingcos.top/users/kingcos/repos
 ```
 
 - For your repository, just replace the username and repository name, then try again:
