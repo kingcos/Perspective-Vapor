@@ -25,6 +25,11 @@ class PerspectiveController: RouteCollection {
             router.get(String.parameter, String.parameter, API.GitHub.Labels,
                        use: fetchLabels)
         }
+        
+        router.group("users") { router in
+            router.get(String.parameter, API.GitHub.Repos,
+                       use: fetchUserRepos)
+        }
     }
 }
 
@@ -141,6 +146,34 @@ extension PerspectiveController {
             
             return try ResponseJSON<[Label]>(status: .ok,
                                              data: items).encode(for: request)
+        }
+    }
+    
+    func fetchUserRepos(_ request: Request) throws -> Future<Response> {
+        let owner = try request.parameters.next(String.self)
+        
+        let page = request.query[String.self, at: "page"] ?? "1"
+        let perPage = request.query[String.self, at: "per_page"] ?? "10"
+        
+        let url = "\(API.GitHub.Prefix)/\(API.GitHub.Users)/\(owner)/\(API.GitHub.Repos)?page=\(page)&per_page=\(perPage)"
+        
+        guard let apiURL = url.convertToURL() else {
+            return try ResponseJSON<Empty>(status: .error,
+                                           message: "API URL has broken.").encode(for: request)
+        }
+        
+        let header: HTTPHeaders = [
+            "Authorization" : "token \(API.GitHub.Token)"
+        ]
+        let apiRequest = HTTPRequest(method: .GET, url: apiURL, headers: header)
+        let getRequest = Request(http: apiRequest, using: request)
+        
+        return try request.client().send(getRequest).flatMap(to: Response.self) { response in
+            let data = response.http.body.utf8.convertToData()
+            let items = try JSONDecoder().decode([Repo].self, from: data)
+            
+            return try ResponseJSON<[Repo]>(status: .ok,
+                                          data: items).encode(for: request)
         }
     }
 }
