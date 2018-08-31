@@ -16,5 +16,6 @@ struct API {
         static let Issues = "issues"
         static let Comments  = "comments"
         static let Labels  = "labels"
+        static let Users  = "users"
     }
 }
