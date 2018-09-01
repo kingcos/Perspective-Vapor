@@ -154,8 +154,9 @@ extension PerspectiveController {
         
         let page = request.query[String.self, at: "page"] ?? "1"
         let perPage = request.query[String.self, at: "per_page"] ?? "10"
+        let sort = request.query[String.self, at: "sort"] ?? "full_name"
         
-        let url = "\(API.GitHub.Prefix)/\(API.GitHub.Users)/\(owner)/\(API.GitHub.Repos)?page=\(page)&per_page=\(perPage)"
+        let url = "\(API.GitHub.Prefix)/\(API.GitHub.Users)/\(owner)/\(API.GitHub.Repos)?page=\(page)&per_page=\(perPage)&sort=\(sort)"
         
         guard let apiURL = url.convertToURL() else {
             return try ResponseJSON<Empty>(status: .error,
