@@ -16,7 +16,7 @@ This is just a simple server for visit GitHub API through your server. It's even
 
 ## How to run?
 
-Install Vapor 3.0 - first: [Vapor Documentation](https://docs.vapor.codes/3.0/)
+Install Vapor 3.0 first from [Vapor Documentation](https://docs.vapor.codes/3.0/).
 
 ### macOS
 
