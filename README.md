@@ -16,6 +16,8 @@ This is just a simple server for visit GitHub API through your server. It's even
 
 ## How to run?
 
+Install Vapor 3.0 - first: [Vapor Documentation](https://docs.vapor.codes/3.0/)
+
 ### macOS
 
 1. `git clone https://github.com/kingcos/Perspective-Vapor.git`
